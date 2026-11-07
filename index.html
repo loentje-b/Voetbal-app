@@ -1,40 +1,47 @@
 <!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Voetbal</title><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon.png">
-<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Voetbal"><meta name="theme-color" content="#0b1d12">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Voetbal"><meta name="theme-color" content="#000000">
 <style>
-:root{--bg:#0b1d12;--card:#14301f;--tx:#eef6f0;--mu:#8fb09a;--ac:#3ddc84}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.4 -apple-system,system-ui,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
-header{padding:14px 16px 6px;display:flex;justify-content:space-between;align-items:center}h1{margin:0;font-size:22px}
-nav{display:flex;gap:8px;overflow-x:auto;padding:8px 16px;position:sticky;top:env(safe-area-inset-top);background:var(--bg)}
-nav button,.chip{flex:none;border:0;border-radius:20px;padding:8px 14px;background:var(--card);color:var(--tx);font:inherit}
-nav .on,.chip.on{background:var(--ac);color:#06210f;font-weight:600}
-main{padding:8px 16px 40px}.card{display:block;background:var(--card);border-radius:12px;padding:12px 14px;margin:0 0 10px;color:inherit;text-decoration:none}
-.card b{font-weight:600}.card small,.mu{color:var(--mu);display:block;margin-top:4px;font-size:13px}.star{color:var(--ac)}
-h2{font-size:15px;color:var(--ac);margin:18px 0 8px}.row{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid #ffffff14}
-select{width:100%;padding:10px;border-radius:10px;border:0;background:var(--card);color:var(--tx);font:inherit;margin-bottom:10px}
-table{width:100%;border-collapse:collapse}td,th{padding:6px 4px;text-align:right}td:nth-child(2),th:nth-child(2){text-align:left;width:100%}th{color:var(--mu);font-weight:400;font-size:13px}
+:root{--bg:#fff;--tx:#111;--mu:#767676;--ln:#e4e4e4;--bar:#000;--btn:#000;--btt:#fff}
+@media(prefers-color-scheme:dark){:root{--bg:#000;--tx:#f2f2f2;--mu:#9a9a9a;--ln:#2a2a2a;--bar:#151515;--btn:#fff;--btt:#000}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 -apple-system,system-ui,"Helvetica Neue",sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+header{background:var(--bar);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:baseline}
+h1{margin:0;font-size:24px;font-weight:900;letter-spacing:.08em;font-style:italic}header span{font-size:12px;color:#bbb}
+nav{display:flex;overflow-x:auto;position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--ln);z-index:2}
+nav button{flex:none;border:0;background:none;color:var(--mu);font:700 13px inherit;font-family:inherit;text-transform:uppercase;letter-spacing:.04em;padding:13px 14px;border-bottom:3px solid transparent}
+nav .on{color:var(--tx);border-bottom-color:var(--tx)}
+main{padding:0 16px 40px;max-width:720px;margin:auto}
+.chip{margin:12px 0 0;border:1px solid var(--tx);background:none;color:var(--tx);border-radius:3px;padding:6px 10px;font:600 13px inherit;font-family:inherit}.chip.on{background:var(--btn);color:var(--btt)}
+.it{padding:14px 0;border-bottom:1px solid var(--ln);cursor:pointer}.it b{display:block;font-size:18px;line-height:1.25;font-weight:700;margin:3px 0}
+.lead b{font-size:28px;line-height:1.12;font-weight:800;margin:6px 0 8px}.lead{padding:18px 0}
+.lab{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}.lab em{font-style:normal;background:var(--btn);color:var(--btt);padding:1px 5px;border-radius:2px}
+small,.mu{color:var(--mu);font-size:13px}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--tx);padding-bottom:4px;margin:22px 0 4px}
+.row{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid var(--ln)}
+select{width:100%;padding:10px;border:1px solid var(--tx);border-radius:3px;background:var(--bg);color:var(--tx);font:inherit;margin:12px 0}
+table{width:100%;border-collapse:collapse}td,th{padding:8px 4px;text-align:right;border-bottom:1px solid var(--ln)}td:nth-child(2),th:nth-child(2){text-align:left;width:100%}th{color:var(--mu);font-weight:600;font-size:12px}
+.rd{position:fixed;inset:0;background:var(--bg);overflow:auto;z-index:9}.rb{background:var(--bar);padding:10px 12px}.rb button{background:none;border:0;color:#fff;font:600 16px inherit;font-family:inherit}
+article{max-width:680px;margin:auto;padding:18px 18px 60px}article h1{font-size:28px;line-height:1.15;font-style:normal;letter-spacing:0;font-weight:800;margin:8px 0 14px}article p{font-size:18px;line-height:1.6;margin:0 0 16px}
+.sw{display:flex;align-items:center;gap:10px;margin:0 0 18px;padding:10px 12px;border:1px solid var(--ln);font-size:14px}.sw input{display:none}
+.sw i{width:42px;height:24px;border-radius:12px;background:var(--mu);position:relative;flex:none}.sw i:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--bg);transition:.2s}
+.sw input:checked+i{background:var(--tx)}.sw input:checked+i:after{left:21px}
+.btn{display:block;text-align:center;background:var(--btn);color:var(--btt);padding:14px;text-decoration:none;font-weight:700;margin-top:24px}
 </style></head><body>
-<header><h1>⚽ Voetbal</h1><span class="mu" id="up"></span></header>
-<nav id="nav"></nav><main id="main"></main>
+<header><h1>VOETBAL</h1><span id="up"></span></header>
+<nav id="nav"></nav><main id="main"></main><div id="rd"></div>
 <script>
 const TABS=[['nieuws','Nieuws'],['wedstrijden','Wedstrijden'],['standen','Standen'],['transfers','Transfers'],['blessures','Blessures'],['geruchten','Geruchten'],['meningen','Meningen']];
-let D={tabs:{}},M={matches:[],tables:{}},tab='nieuws',mine=false,comp='';
+let D={tabs:{}},M={matches:[],tables:{}},tab='nieuws',mine=false,comp='',LIST=[],cur=null,orig=false;
 const e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const ago=d=>{const m=(Date.now()-new Date(d))/6e4;return m<60?Math.max(1,Math.round(m))+' min':m<1440?Math.round(m/60)+' u':Math.round(m/1440)+' d'};
+const ago=d=>{const m=(Date.now()-new Date(d))/6e4;return m<60?Math.max(1,Math.round(m))+' min':m<1440?Math.round(m/60)+' uur':Math.round(m/1440)+' d'};
 async function load(){try{D=await fetch('data/news.json').then(r=>r.json())}catch{}try{M=await fetch('data/matches.json').then(r=>r.json())}catch{}render()}
-function render(){
-document.getElementById('up').textContent=D.updated?'Bijgewerkt '+ago(D.updated)+' geleden':'';
-document.getElementById('nav').innerHTML=TABS.map(([k,l])=>`<button class="${k===tab?'on':''}" onclick="tab='${k}';render();scrollTo(0,0)">${l}</button>`).join('');
-let h='';
-if(tab==='wedstrijden'){const by={};M.matches.forEach(m=>(by[m.comp]??=[]).push(m));
-h=Object.entries(by).map(([c,ms])=>`<h2>${e(c)}</h2>`+ms.sort((a,b)=>a.date.localeCompare(b.date)).map(m=>{const f=m.status==='FINISHED'||m.hs!=null;
-return `<div class="row"><span>${e(m.home)} – ${e(m.away)}</span><b>${f?m.hs+' - '+m.as:new Date(m.date).toLocaleString('nl-NL',{weekday:'short',hour:'2-digit',minute:'2-digit'})}</b></div>`}).join('')).join('')||'<p class="mu">Nog geen wedstrijddata (zie stap met FD_KEY).</p>'}
-else if(tab==='standen'){const ks=Object.keys(M.tables);comp=comp||ks[0]||'';
-h=ks.length?`<select onchange="comp=this.value;render()">${ks.map(k=>`<option ${k===comp?'selected':''}>${e(k)}</option>`).join('')}</select><table><tr><th>#</th><th>Club</th><th>Gs</th><th>Dv</th><th>Pt</th></tr>${M.tables[comp].map(t=>`<tr><td>${t.pos}</td><td>${e(t.team)}</td><td>${t.pl}</td><td>${t.gd}</td><td><b>${t.pts}</b></td></tr>`).join('')}</table>`:'<p class="mu">Nog geen standen (zie stap met FD_KEY).</p>'}
-else{h=`<button class="chip ${mine?'on':''}" onclick="mine=!mine;render()" style="margin-bottom:10px">⭐ Alleen Groningen & Liverpool</button>`;
-const L=(D.tabs[tab]||[]).filter(i=>!mine||i.mine);
-h+=L.map(i=>`<a class="card" href="${e(i.url)}" target="_blank" rel="noopener"><b>${i.mine?'<span class="star">⭐</span> ':''}${e(i.title)}</b><small>${e(i.source)} · ${ago(i.date)}</small></a>`).join('')||'<p class="mu">Niets gevonden.</p>'}
-document.getElementById('main').innerHTML=h}
-if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
-load();document.addEventListener('visibilitychange',()=>{if(!document.hidden)load()});
-</script></body></html>
+function openItem(x){cur=LIST[x];orig=false;history.pushState({r:1},'');render()}
+onpopstate=()=>{cur=null;render()};
+function row(i,x,lead){const en=i.lang==='en',t=en&&i.nl?i.nl.title:i.title;
+return `<div class="it${lead?' lead':''}" onclick="openItem(${x})"><span class="lab">${e(i.source)}${en?' · <em>EN vertaald</em>':''}${i.mine?' · ★':''}</span><b>${e(t)}</b><small>${ago(i.date)} geleden</small></div>`}
+function reader(i){const en=i.lang==='en',has=en&&i.nl,sh=has&&orig;
+const t=has&&!sh?i.nl.title:i.title,tx=has&&!sh?i.nl.text:i.text;
+return `<div class="rd"><div class="rb"><button onclick="history.back()">‹ Terug</button></div><article><span class="lab">${e(i.source)} · ${ago(i.date)} geleden</span><h1>${e(t)}</h1>
+${has?`<label class="sw"><input type="checkbox" ${orig?'checked':''} onchange="orig=this.checked;render()"><i></i><span>${orig?'Engelse origineel':'Automatisch vertaald · tik voor Engels'}</span></label>`:en?'<p class="mu">Engels artikel, niet vertaald.</p>':''}
+${tx?tx.split(/\n\n/).map(p=>`<p>${e(p)}</p>`).join(''):'<p class="mu">Van dit artikel kon de app geen tekst ophalen.</p>'}
+<a class="btn"
