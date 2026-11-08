@@ -13,6 +13,12 @@ jobs:
       - run: node scripts/update.mjs
         env:
           FD_KEY: ${{ secrets.FD_KEY }}
+          MYMEMORY_EMAIL: ${{ secrets.MYMEMORY_EMAIL }}
+      - run: node scripts/briefing.mjs
+        continue-on-error: true
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
           APP_URL: ${{ vars.APP_URL }}
       - run: |
