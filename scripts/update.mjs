@@ -67,4 +67,3 @@ fs.writeFileSync('data/briefing.txt',lines.length?say:'Goedemorgen. Er is geen n
 if(process.env.NTFY_TOPIC){const h={Title:'Voetbal van vandaag'};if(process.env.APP_URL)h.Click=process.env.APP_URL;
 await fetch('https://ntfy.sh/'+process.env.NTFY_TOPIC,{method:'POST',headers:h,body:Buffer.from(body)})}
 const h={Title:'Voetbal van vandaag'};if(process.env.APP_URL)h.Click=process.env.APP_URL;
-await fetch('https://ntfy.sh/'+process.env.NTFY_TOPIC,{method:'POST',headers:h,body:Buffer.from(body)})}
