@@ -64,6 +64,3 @@ const lines=[...res.map(x=>'⚽ '+x),...today.map(x=>'📅 Vandaag: '+x),...mine
 const body=lines.join('\n')||'Geen nieuw voetbalnieuws sinds gisteravond.';
 const say=['Goedemorgen. Dit is het voetbalnieuws.',...res.map(x=>'Uitslag: '+x+'.'),...today.map(x=>'Vandaag: '+x+'.'),...[...mine,...rest].map(i=>T(i).replace(/[^\p{L}\p{N}\s,.:'-]/gu,'')+'.')].join(' ');
 fs.writeFileSync('data/briefing.txt',lines.length?say:'Goedemorgen. Er is geen nieuw voetbalnieuws sinds gisteravond.');
-if(process.env.NTFY_TOPIC){const h={Title:'Voetbal van vandaag'};if(process.env.APP_URL)h.Click=process.env.APP_URL;
-await fetch('https://ntfy.sh/'+process.env.NTFY_TOPIC,{method:'POST',headers:h,body:Buffer.from(body)})}
-const h={Title:'Voetbal van vandaag'};if(process.env.APP_URL)h.Click=process.env.APP_URL;
