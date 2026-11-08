@@ -44,4 +44,20 @@ const t=has&&!sh?i.nl.title:i.title,tx=has&&!sh?i.nl.text:i.text;
 return `<div class="rd"><div class="rb"><button onclick="history.back()">‹ Terug</button></div><article><span class="lab">${e(i.source)} · ${ago(i.date)} geleden</span><h1>${e(t)}</h1>
 ${has?`<label class="sw"><input type="checkbox" ${orig?'checked':''} onchange="orig=this.checked;render()"><i></i><span>${orig?'Engelse origineel':'Automatisch vertaald · tik voor Engels'}</span></label>`:en?'<p class="mu">Engels artikel, niet vertaald.</p>':''}
 ${tx?tx.split(/\n\n/).map(p=>`<p>${e(p)}</p>`).join(''):'<p class="mu">Van dit artikel kon de app geen tekst ophalen.</p>'}
-<a class="btn"
+<a class="btn" href="${e(i.url)}" target="_blank" rel="noopener">Lees het volledige artikel bij ${e(i.source)} ›</a></article></div>`}
+function render(){
+document.getElementById('up').textContent=D.updated?'Bijgewerkt '+ago(D.updated)+' geleden':'';
+document.getElementById('nav').innerHTML=TABS.map(([k,l])=>`<button class="${k===tab?'on':''}" onclick="tab='${k}';render();scrollTo(0,0)">${l}</button>`).join('');
+let h='';
+if(tab==='wedstrijden'){const by={};M.matches.forEach(m=>(by[m.comp]??=[]).push(m));
+h=Object.entries(by).map(([c,ms])=>`<h2>${e(c)}</h2>`+ms.sort((a,b)=>a.date.localeCompare(b.date)).map(m=>{const f=m.status==='FINISHED'||m.hs!=null;
+return `<div class="row"><span>${e(m.home)} – ${e(m.away)}</span><b>${f?m.hs+' - '+m.as:new Date(m.date).toLocaleString('nl-NL',{weekday:'short',hour:'2-digit',minute:'2-digit'})}</b></div>`}).join('')).join('')||'<p class="mu">Nog geen wedstrijddata (FD_KEY nodig).</p>'}
+else if(tab==='standen'){const ks=Object.keys(M.tables);comp=comp||ks[0]||'';
+h=ks.length?`<select onchange="comp=this.value;render()">${ks.map(k=>`<option ${k===comp?'selected':''}>${e(k)}</option>`).join('')}</select><table><tr><th>#</th><th>Club</th><th>Gs</th><th>Dv</th><th>Pt</th></tr>${M.tables[comp].map(t=>`<tr><td>${t.pos}</td><td>${e(t.team)}</td><td>${t.pl}</td><td>${t.gd}</td><td><b>${t.pts}</b></td></tr>`).join('')}</table>`:'<p class="mu">Nog geen standen (FD_KEY nodig).</p>'}
+else{LIST=(D.tabs[tab]||[]).filter(i=>!mine||i.mine);
+h=`<button class="chip ${mine?'on':''}" onclick="mine=!mine;render()">★ Groningen & Liverpool</button>`+(LIST.map((i,x)=>row(i,x,x===0)).join('')||'<p class="mu">Niets gevonden.</p>')}
+document.getElementById('main').innerHTML=h;
+document.getElementById('rd').innerHTML=cur?reader(cur):''}
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
+load();document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!cur)load()});
+</script></body></html>
