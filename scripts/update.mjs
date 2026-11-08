@@ -12,7 +12,7 @@ meningen:[NL(Q('voetballer interview zegt over')),NL(Q('oud-voetballer analyse m
 const COMPS={PL:'Premier League',PD:'La Liga',SA:'Serie A',BL1:'Bundesliga',FL1:'Ligue 1',DED:'Eredivisie',CL:'Champions League'};
 const MAX_EN=6;
 // Clickbait-filter: titels die hierop matchen worden weggelaten. Pas gerust aan.
-const BAIT=/(geloof je|je gelooft|you won'?t believe|unbelievable|shocking|schokkend|ongelooflijk|bizar|\bwow\b|moet je zien|dit moet je|wat er daarna|dit is waarom|here'?s why|going viral|gaat viraal|sensati|\?\s*$|!|…|\.\.\.$|\b[A-Z]{4,}\b.*\b[A-Z]{4,}\b)/i;
+const BAIT=/(geloof je|je gelooft|you won'?t believe|unbelievable|shocking|schokkend|ongelooflijk|bizar|\bwow\b|moet je zien|dit moet je|wat er daarna|dit is waarom|here'?s why|going viral|gaat viraal|sensati|\?\s*$|!|…|\.\.\.$)/i;
 const BAIT_CAPS=/\b[A-Z]{4,}\b.*\b[A-Z]{4,}\b/;
 const ent=s=>s.replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#0?39;|&apos;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&nbsp;/g,' ').replace(/&#(\d+);/g,(_,n)=>String.fromCharCode(n));
 const clean=s=>ent(s.replace(/<!\[CDATA\[|\]\]>/g,'').replace(/<[^>]+>/g,' ')).replace(/\s+/g,' ').trim();
