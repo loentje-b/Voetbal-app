@@ -32,7 +32,7 @@ article img{width:100%;height:auto;display:block;margin:0 0 16px}article h3{font
 <nav id="nav"></nav><main id="main"></main><div id="rd"></div>
 <script>
 const TABS=[['nieuws','Nieuws'],['wedstrijden','Wedstrijden'],['standen','Standen'],['transfers','Transfers'],['blessures','Blessures'],['geruchten','Geruchten'],['meningen','Meningen']];
-const WORKER='';
+const WORKER='https://voetbal-lezer.leonbollaart.workers.dev/';
 const ART={};
 let D={tabs:{}},M={matches:[],tables:{}},tab='nieuws',mine=false,comp='',LIST=[],cur=null,orig=false;
 const e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
