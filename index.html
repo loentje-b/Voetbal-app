@@ -22,9 +22,6 @@ select{width:100%;padding:10px;border:1px solid var(--tx);border-radius:3px;back
 table{width:100%;border-collapse:collapse}td,th{padding:8px 4px;text-align:right;border-bottom:1px solid var(--ln)}td:nth-child(2),th:nth-child(2){text-align:left;width:100%}th{color:var(--mu);font-weight:600;font-size:12px}
 .rd{position:fixed;inset:0;background:var(--bg);overflow:auto;z-index:9}.rb{background:var(--bar);padding:10px 12px}.rb button{background:none;border:0;color:#fff;font:600 16px inherit;font-family:inherit}
 article{max-width:680px;margin:auto;padding:18px 18px 60px}article h1{font-size:28px;line-height:1.15;font-style:normal;letter-spacing:0;font-weight:800;margin:8px 0 14px}article p{font-size:18px;line-height:1.6;margin:0 0 16px}
-.sw{display:flex;align-items:center;gap:10px;margin:0 0 18px;padding:10px 12px;border:1px solid var(--ln);font-size:14px}.sw input{display:none}
-.sw i{width:42px;height:24px;border-radius:12px;background:var(--mu);position:relative;flex:none}.sw i:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--bg);transition:.2s}
-.sw input:checked+i{background:var(--tx)}.sw input:checked+i:after{left:21px}
 .btn{display:block;text-align:center;background:var(--btn);color:var(--btt);padding:14px;text-decoration:none;font-weight:700;margin-top:24px}
 article img{width:100%;height:auto;display:block;margin:0 0 16px}article h3{font-size:20px;line-height:1.25;margin:22px 0 8px}
 </style></head><body>
@@ -32,31 +29,21 @@ article img{width:100%;height:auto;display:block;margin:0 0 16px}article h3{font
 <nav id="nav"></nav><main id="main"></main><div id="rd"></div>
 <script>
 const TABS=[['nieuws','Nieuws'],['wedstrijden','Wedstrijden'],['standen','Standen'],['transfers','Transfers'],['blessures','Blessures'],['geruchten','Geruchten'],['meningen','Meningen']];
-const WORKER='https://voetbal-lezer.leonbollaart.workers.dev/';
-const ART={};
 let D={tabs:{}},M={matches:[],tables:{}},tab='nieuws',mine=false,comp='',LIST=[],cur=null,orig=false;
 const e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const ago=d=>{const m=(Date.now()-new Date(d))/6e4;return m<60?Math.max(1,Math.round(m))+' min':m<1440?Math.round(m/60)+' uur':Math.round(m/1440)+' d'};
 async function load(){try{D=await fetch('data/news.json').then(r=>r.json())}catch{}try{M=await fetch('data/matches.json').then(r=>r.json())}catch{}render()}
-function openItem(x){cur=LIST[x];orig=false;history.pushState({r:1},'');render();loadArt(cur)}
-async function loadArt(i){if(!WORKER||ART[i.url]!==undefined)return;ART[i.url]=null;
-try{const r=await fetch(WORKER+'?u='+encodeURIComponent(i.url));if(!r.ok)throw 0;ART[i.url]=await r.json()}catch{ART[i.url]=false}
-if(cur===i)render()}
+function openItem(x){cur=LIST[x];history.pushState({r:1},'');render()}
 onpopstate=()=>{cur=null;render()};
 function row(i,x,lead){const en=i.lang==='en',t=en&&i.nl?i.nl.title:i.title;
 return `<div class="it${lead?' lead':''}" onclick="openItem(${x})"><span class="lab">${e(i.source)}${en?' · <em>EN vertaald</em>':''}${i.mine?' · ★':''}</span><b>${e(t)}</b><small>${ago(i.date)} geleden</small></div>`}
-function reader(i){const a=ART[i.url],ok=a&&!a.error,has=ok&&a.nl,sh=has&&orig,tn=has&&!sh;
-const t=ok?(tn?a.nl.title||a.title:a.title||i.title):(i.lang==='en'&&i.nl?i.nl.title:i.title);
-const ps=ok?(tn?a.nl.paras:a.paras):(i.text?i.text.split('\n\n'):[]);
-const im=ok?[a.image,...(a.images||[])].filter(Boolean):[];
-const img=s=>`<img src="${e(s)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`;
-const blk=p=>p.startsWith('## ')?`<h3>${e(p.slice(3))}</h3>`:`<p>${e(p)}</p>`;
-const st=a===null?'<p class="mu">Artikel laden…</p>':(WORKER&&(a===false||a&&a.error))?'<p class="mu">Kon het artikel niet laden. Hieronder staat de korte samenvatting, de bronsite heeft het volledige artikel.</p>':!WORKER?'<p class="mu">Leesdienst nog niet ingesteld: alleen een korte samenvatting.</p>':'';
-return `<div class="rd"><div class="rb"><button onclick="history.back()">‹ Terug</button></div><article><span class="lab">${e(ok?a.source:i.source)} · ${ago(i.date)} geleden${has||i.lang==='en'?' · <em>EN</em>':''}</span><h1>${e(t)}</h1>
-${has?`<label class="sw"><input type="checkbox" ${orig?'checked':''} onchange="orig=this.checked;render()"><i></i><span>${orig?'Engelse origineel':'Automatisch vertaald · tik voor Engels'}</span></label>`:''}
-${im[0]?img(im[0]):''}${st}
-${ps.map((p,k)=>blk(p)+(k===2&&im[1]?img(im[1]):'')+(k===6&&im[2]?img(im[2]):'')).join('')||(a===null?'':'<p class="mu">Geen tekst beschikbaar.</p>')}
-<a class="btn" href="${e(ok?a.url:i.url)}" target="_blank" rel="noopener">Open op de bronsite ›</a></article></div>`}
+function reader(i){const en=i.lang==='en',t=en&&i.nl?i.nl.title:i.title;
+const ps=i.ai?i.ai.split('\n\n'):(i.text?i.text.split('\n\n'):[]);
+return `<div class="rd"><div class="rb"><button onclick="history.back()">‹ Terug</button></div><article><span class="lab">${e(i.source)} · ${ago(i.date)} geleden${i.ai?' · <em>AI-tekst</em>':''}</span><h1>${e(t)}</h1>
+${i.img?`<img src="${e(i.img)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:''}
+${ps.map(p=>`<p>${e(p)}</p>`).join('')||'<p class="mu">Voor dit bericht is geen tekst beschikbaar.</p>'}
+${i.ai?'<p class="mu">Samenvatting in eigen woorden, door AI geschreven op basis van het bronartikel. Kan fouten bevatten.</p>':''}
+<a class="btn" href="${e(i.url)}" target="_blank" rel="noopener">Bron: ${e(i.source)} ›</a></article></div>`}
 function render(){
 document.getElementById('up').textContent=D.updated?'Bijgewerkt '+ago(D.updated)+' geleden':'';
 document.getElementById('nav').innerHTML=TABS.map(([k,l])=>`<button class="${k===tab?'on':''}" onclick="tab='${k}';render();scrollTo(0,0)">${l}</button>`).join('');
